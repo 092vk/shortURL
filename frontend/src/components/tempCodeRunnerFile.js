@@ -1,19 +1,23 @@
-async function getHello(){
+async function  RedirectURL(oriURL){
     try{
-    const response = fetch('http://localhost:8081/',{
+    const URL = 'http://localhost:8081/'+oriURL;
+    const response = await fetch(URL,{
         method:'GET',
+        redirect:'manual',
     });
-    
-    if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
+
+    if(!response.ok){
+        throw new Error('Failed to shorten URL');
     }
 
-    const data = await response.json();
-    console.log(data);
+    if (response.status >= 300 && response.status < 400) {
+        window.location.href = response.headers.get('Location');
     }
-    catch(error){
-        console.log("error");
-    }
-}
 
-getHello();
+    }
+    catch(err){
+        console.log("error",err);
+    }
+}   
+
+RedirectURL("1616gY&5");

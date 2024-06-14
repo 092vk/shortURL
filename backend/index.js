@@ -4,10 +4,13 @@ import connectDB from './connection.js';
 import mapi from "./models/mapi.js";
 import middleWareConfig from './middlewares/middlewareConfig.js';
 import mapiRoute from './router/router.js';
+import cors from 'cors';
 
 
 const app = express();
 const PORT = 8081;
+app.use(cors())
+
 
 //connect the db
 connectDB();
